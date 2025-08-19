@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>(Re) - Amplify | Enhance Your Returns with Any Asset</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #ffffff;
+            background: #0a0e27;
+            overflow-x: hidden;
+        }
+        .gradient-bg {
+            background: linear-gradient(135deg, #0a2e5c 0%, #1a4d8c 100%);
+        }
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            background: linear-gradient(135deg, #0a2e5c 0%, #1a4d8c 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://sfile.chatglm.cn/images-ppt/he-man-lightning.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.25;
+            z-index: 0;
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 0 70px;
+            max-width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .logo {
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #4fc3f7 0%, #1a4d8c 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 25px rgba(79, 195, 247, 0.3);
+            animation: pulse 2s infinite;
+        }
+        .logo-icon i {
+            font-size: 40px;
+            color: white;
+        }
+        .title {
+            font-size: 72px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #ffffff;
+            letter-spacing: -1px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #ffffff 0%, #a9c6ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            animation: glow 3s infinite alternate;
+        }
+        .subtitle {
+            font-size: 32px;
+            font-weight: 300;
+            margin-bottom: 40px;
+            color: #a9c6ff;
+            letter-spacing: 1px;
+        }
+        .tagline {
+            font-size: 22px;
+            font-weight: 400;
+            color: #e0e9ff;
+            max-width: 80%;
+            margin: 0 auto;
+            padding: 20px 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .accent {
+            color: #4fc3f7;
+            font-weight: 600;
+            position: relative;
+            display: inline-block;
+        }
+        .accent::after {
+            content: "";
+            position: absolute;
+            bottom: 2px;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background-color: #4fc3f7;
+            opacity: 0.5;
+            border-radius: 2px;
+        }
+        .floating-shapes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 0;
+        }
+        .lightning {
+            position: absolute;
+            width: 4px;
+            height: 100px;
+            background: linear-gradient(to bottom, transparent, #fff, #4fc3f7, transparent);
+            opacity: 0;
+            animation: flash 4s infinite;
+            transform-origin: top center;
+        }
+        .lightning:nth-child(1) {
+            left: 20%;
+            top: 10%;
+            height: 200px;
+            transform: rotate(15deg);
+            animation-delay: 0.5s;
+        }
+        .lightning:nth-child(2) {
+            left: 70%;
+            top: 15%;
+            height: 180px;
+            transform: rotate(-10deg);
+            animation-delay: 1.2s;
+        }
+        .lightning:nth-child(3) {
+            left: 40%;
+            top: 20%;
+            height: 150px;
+            transform: rotate(5deg);
+            animation-delay: 2s;
+        }
+        .lightning:nth-child(4) {
+            left: 60%;
+            top: 5%;
+            height: 220px;
+            transform: rotate(-20deg);
+            animation-delay: 2.7s;
+        }
+        .lightning:nth-child(5) {
+            left: 30%;
+            top: 25%;
+            height: 160px;
+            transform: rotate(25deg);
+            animation-delay: 3.5s;
+        }
+        .energy-burst {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(79, 195, 247, 0.7) 0%, rgba(79, 195, 247, 0) 70%);
+            opacity: 0;
+            animation: burst 4s infinite;
+        }
+        .energy-burst:nth-child(6) {
+            top: 30%;
+            left: 40%;
+            animation-delay: 0.8s;
+        }
+        .energy-burst:nth-child(7) {
+            top: 40%;
+            left: 50%;
+            animation-delay: 2.3s;
+        }
+        @keyframes flash {
+            0%, 100% { opacity: 0; }
+            5% { opacity: 0.8; }
+            10% { opacity: 0; }
+            15% { opacity: 0.9; }
+            20% { opacity: 0; }
+        }
+        @keyframes burst {
+            0%, 100% { opacity: 0; transform: scale(0.5); }
+            10% { opacity: 0.7; transform: scale(1.2); }
+            20% { opacity: 0; transform: scale(1.5); }
+        }
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 10px 25px rgba(79, 195, 247, 0.3); }
+            50% { box-shadow: 0 10px 40px rgba(79, 195, 247, 0.8); }
+        }
+        @keyframes glow {
+            0%, 100% { text-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); }
+            50% { text-shadow: 0 5px 25px rgba(79, 195, 247, 0.6); }
+        }
+        .section {
+            padding: 80px 0;
+            position: relative;
+        }
+        .section-title {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ffffff 0%, #a9c6ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+        .section-subtitle {
+            font-size: 20px;
+            color: #a9c6ff;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto 50px;
+        }
+        .asset-card {
+            background: rgba(26, 77, 140, 0.3);
+            border: 1px solid rgba(79, 195, 247, 0.3);
+            border-radius: 16px;
+            padding: 24px;
+            transition: all 0.3s ease;
+            height: 100%;
+            backdrop-filter: blur(10px);
+        }
+        .asset-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(79, 195, 247, 0.3);
+            border-color: rgba(79, 195, 247, 0.6);
+        }
+        .asset-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+            font-size: 24px;
+        }
+        .asset-name {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        .asset-symbol {
+            font-size: 14px;
+            color: #a9c6ff;
+            margin-bottom: 16px;
+        }
+        .asset-apy {
+            font-size: 24px;
+            font-weight: 700;
+            color: #4fc3f7;
+        }
+        .feature-card {
+            background: rgba(26, 77, 140, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            height: 100%;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(79, 195, 247, 0.2);
+            transition: all 0.3s ease;
+        }
+        .feature-card:hover {
+            border-color: rgba(79, 195, 247, 0.5);
+            transform: translateY(-5px);
+        }
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #4fc3f7 0%, #1a4d8c 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 25px rgba(79, 195, 247, 0.3);
+        }
+        .feature-icon i {
+            font-size: 30px;
+            color: white;
+        }
+        .feature-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .feature-description {
+            color: #e0e9ff;
+            line-height: 1.6;
+        }
+        .how-it-works-step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 40px;
+        }
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #4fc3f7 0%, #1a4d8c 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        .step-content {
+            flex-grow: 1;
+        }
+        .step-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .step-description {
+            color: #e0e9ff;
+            line-height: 1.6;
+        }
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 0;
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        .nav.scrolled {
+            background: rgba(10, 46, 92, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+        }
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .nav-logo {
+            display: flex;
+            align-items: center;
+        }
+        .nav-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #4fc3f7 0%, #1a4d8c 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        .nav-logo-icon i {
+            font-size: 20px;
+            color: white;
+        }
+        .nav-logo-text {
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        .nav-link {
+            margin-left: 30px;
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        .nav-link:hover {
+            color: #4fc3f7;
+        }
+        .nav-button {
+            background: linear-gradient(135deg, #4fc3f7 0%, #1a4d8c 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-left: 30px;
+        }
+        .nav-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(79, 195, 247, 0.3);
+        }
+        .cta-section {
+            background: linear-gradient(135deg, #0a2e5c 0%, #1a4d8c 100%);
+            padding: 100px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://sfile.chatglm.cn/images-ppt/he-man-lightning.jpg');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.15;
+            z-index: 0;
+        }
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .cta-title {
+            font-size: 48px;
+            font-weight: 900;
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #ffffff 0%, #a9c6ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .cta-description {
+            font-size: 20px;
+            color: #e0e9ff;
+            margin-bottom: 40px;
+        }
+        .cta-button {
+            background: linear-gradient(135deg, #4fc3f7 0%, #1a4d8c 100%);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+            text-decoration: none;
+        }
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(79, 195, 247, 0.4);
+        }
+        .footer {
+            background: #0a0e27;
+            padding: 60px 0 30px;
+            border-top: 1px solid rgba(79, 195, 247, 0.2);
+        }
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer-column h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: #4fc3f7;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #a9c6ff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .footer-links a:hover {
+            color: #4fc3f7;
+        }
+        .footer-social {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            background: rgba(79, 195, 247, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #a9c6ff;
+            transition: all 0.3s ease;
+        }
+        .footer-social a:hover {
+            background: rgba(79, 195, 247, 0.4);
+            color: #ffffff;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(79, 195, 247, 0.2);
+            color: #a9c6ff;
+            font-size: 14px;
+        }
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .nav-button {
+                display: none;
+            }
+            .mobile-menu-toggle {
+                display: block;
+            }
+            .title {
+                font-size: 48px;
+            }
+            .subtitle {
+                font-size: 24px;
+            }
+            .tagline {
+                font-size: 18px;
+                padding: 15px 20px;
+            }
+            .section-title {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <div class="nav-logo-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <span class="nav-logo-text">(Re) - Amplify</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#assets" class="nav-link">Assets</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
+            </ul>
+            <a href="#cta" class="nav-button">Launch App</a>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="floating-shapes">
+            <div class="lightning"></div>
+            <div class="lightning"></div>
+            <div class="lightning"></div>
+            <div class="lightning"></div>
+            <div class="lightning"></div>
+            <div class="energy-burst"></div>
+            <div class="energy-burst"></div>
+        </div>
+        <div class="content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+            </div>
+            <h1 class="title">(Re) - Amplify</h1>
+            <h2 class="subtitle">Enhance Your Returns with Any Asset</h2>
+            <div class="tagline">
+                Amplify your yield on <span class="accent">BTC</span>, <span class="accent">ETH</span>, <span class="accent">stETH</span>, <span class="accent">AVAX</span>, <span class="accent">HYPE</span>, <span class="accent">KHYPE</span>, <span class="accent">Stablecoins</span> and <span class="accent">Tokenized Treasuries</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Supported Assets Section -->
+    <section id="assets" class="section">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">Supported Assets</h2>
+            <p class="section-subtitle">Earn yield on a wide range of cryptocurrencies and tokenized assets</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                <!-- BTC -->
+                <div class="asset-card">
+                    <div class="asset-icon" style="background: linear-gradient(135deg, #f7931a, #ff9500);">
+                        <i class="fab fa-bitcoin"></i>
+                    </div>
+                    <h3 class="asset-name">Bitcoin</h3>
+                    <p class="asset-symbol">BTC</p>
+                    <div class="asset-apy">5.2% APY</div>
+                </div>
+                
+                <!-- ETH -->
+                <div class="asset-card">
+                    <div class="asset-icon" style="background: linear-gradient(135deg, #627eea, #4a90e2);">
+                        <i class="fab fa-ethereum"></i>
+                    </div>
+                    <h3 class="asset-name">Ethereum</h3>
+                    <p class="asset-symbol">ETH</p>
+                    <div class="asset-apy">7.8% APY</div>
+                </div>
+                
+                <!-- stETH -->
+                <div class="asset-card">
+                    <div class="asset-icon" style="background: linear-gradient(135deg, #00d4aa, #00a695);">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3 class="asset-name">Lido Staked ETH</h3>
+                    <p class="asset-symbol">stETH</p>
+                    <div class="asset-apy">9.1% APY</div>
+                </div>
+                
+                <!-- AVAX -->
+                <div class="asset-card">
+                    <div class="asset-icon" style="background: linear-gradient(135deg, #e84142, #c0392b);">
+                        <i class="fas fa-mountain"></i>
+                    </div>
+                    <h3 class="asset-name">Avalanche</h3>
+                    <p class="asset-symbol">AVAX</p>
+                    <div class="asset-apy">12.5% APY</div>
+                </div>
+                
+                <!-- HYPE -->
+                <div class="asset-card">
+                    <div class="asset-icon" style="background: linear-gradient(135deg, #ff6b6b, #ee5a6f);">
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h3 class="asset-name">HYPE Token</h3>
+                    <p class="asset-symbol">HYPE</p>
+                    <div class="asset-apy">15.3% APY</div>
+                </div>
+                
+                <!-- KHYPE -->
+                <div class="asset-card">
+                    <div class="asset-icon" style="background: linear-gradient(135deg, #9c88ff, #8c7ae6);">
+                        <i class="fas fa-rocket"></i>
+                    </div>
+                    <h3 class="asset-name">KHYPE Token</h3>
+                    <p class="asset-symbol">KHYPE</p>
+                    <div class="asset-apy">18.7% APY</div>
+                </div>
+                
+                <!-- USDC -->
+                <div class="asset-card">
+                    <div class="asset-icon" style="background: linear-gradient(135deg, #2775ca, #1a5fb4);">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3 class="asset-name">USD Coin</h3>
+                    <p class="asset-symbol">USDC</p>
+                    <div class="asset-apy">8.2% APY</div>
+                </div>
+                
+                <!-- USDT -->
+                <div class="asset-card">
+                    <div class="asset-icon" style="background: linear-gradient(135deg, #26a17b, #009393);">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3 class="asset-name">Tether</h3>
+                    <p class="asset-symbol">USDT</p>
+                    <div class="asset-apy">7.9% APY</div>
+                </div>
+                
+                <!-- DAI (without icon) -->
+                <div class="asset-card">
+                    <h3 class="asset-name">Dai Stablecoin</h3>
+                    <p class="asset-symbol">DAI</p>
+                    <div class="asset-apy">8.5% APY</div>
+                </div>
+                
+                <!-- OUSG -->
+                <div class="asset-card">
+                    <div class="asset-icon" style="background: linear-gradient(135deg, #4361ee, #3a0ca3);">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h3 class="asset-name">Ondo US Treasury</h3>
+                    <p class="asset-symbol">OUSG</p>
+                    <div class="asset-apy">4.8% APY</div>
+                </div>
+                
+                <!-- USDY (without icon) -->
+                <div class="asset-card">
+                    <h3 class="asset-name">Ondo Yield Dollar</h3>
+                    <p class="asset-symbol">USDY</p>
+                    <div class="asset-apy">5.1% APY</div>
+                </div>
+                
+                <!-- Tokenized Gold (without icon) -->
+                <div class="asset-card">
+                    <h3 class="asset-name">Tokenized Gold</h3>
+                    <p class="asset-symbol">tGOLD</p>
+                    <div class="asset-apy">3.2% APY</div>
+                </div>
+                
+                <!-- Any Interest Bearing Token -->
+                <div class="asset-card">
+                    <div class="asset-icon" style="background: linear-gradient(135deg, #7209b7, #560bad);">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3 class="asset-name">Any Interest Bearing Token</h3>
+                    <p class="asset-symbol">IBT</p>
+                    <div class="asset-apy">5% - 13% Extra APY</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section" style="background: rgba(10, 46, 92, 0.3);">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">Why Choose (Re) - Amplify?</h2>
+            <p class="section-subtitle">Advanced yield optimization for maximum returns</p>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="feature-title">Higher Yields</h3>
+                    <p class="feature-description">Leverage advanced strategies to generate yields 2-5x higher than traditional methods through intelligent capital allocation and auto-compounding.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3 class="feature-title">Secure & Audited</h3>
+                    <p class="feature-description">Multi-layer security with smart contracts audited by leading blockchain security firms. Your assets are protected at all times.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-sync"></i>
+                    </div>
+                    <h3 class="feature-title">Auto-Compounding</h3>
+                    <p class="feature-description">Automatically reinvest your earnings for exponential growth without manual intervention, maximizing your returns over time.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3 class="feature-title">Multi-Chain Strategy</h3>
+                    <p class="feature-description">Deploy capital across multiple chains to capture the best yield opportunities while minimizing risk through diversification.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <h3 class="feature-title">Smart Optimization</h3>
+                    <p class="feature-description">AI-driven algorithms continuously monitor and adjust positions for maximum efficiency and yield generation.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-coins"></i>
+                    </div>
+                    <h3 class="feature-title">Low Fees</h3>
+                    <p class="feature-description">Competitive fee structure ensures more of your returns stay in your pocket. Transparent pricing with no hidden costs.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="section">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Start earning yield in just a few simple steps</p>
+            
+            <div class="max-w-3xl mx-auto">
+                <div class="how-it-works-step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Connect Your Wallet</h3>
+                        <p class="step-description">Connect your Web3 wallet to get started. We support MetaMask, WalletConnect, and other popular wallet providers.</p>
+                    </div>
+                </div>
+                
+                <div class="how-it-works-step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Select Your Assets</h3>
+                        <p class="step-description">Choose from our wide range of supported assets including cryptocurrencies, stablecoins, and tokenized treasuries.</p>
+                    </div>
+                </div>
+                
+                <div class="how-it-works-step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Choose Your Strategy</h3>
+                        <p class="step-description">Select from our curated yield strategies or let our AI optimize automatically based on your risk preferences.</p>
+                    </div>
+                </div>
+                
+                <div class="how-it-works-step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Earn Yield Automatically</h3>
+                        <p class="step-description">Watch your assets grow automatically through our advanced yield generation and auto-compounding mechanisms.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section id="cta" class="cta-section">
+        <div class="floating-shapes">
+            <div class="lightning"></div>
+            <div class="lightning"></div>
+            <div class="lightning"></div>
+            <div class="energy-burst"></div>
+        </div>
+        <div class="cta-content">
+            <h2 class="cta-title">Ready to Amplify Your Yield?</h2>
+            <p class="cta-description">Join thousands of users maximizing their crypto returns with (Re) - Amplify</p>
+            <a href="#" class="cta-button">Launch App Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <div class="nav-logo" style="margin-bottom: 20px;">
+                        <div class="nav-logo-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <span class="nav-logo-text">(Re) - Amplify</span>
+                    </div>
+                    <p style="color: #a9c6ff; margin-bottom: 20px;">The future of yield generation</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-discord"></i></a>
+                        <a href="#"><i class="fab fa-telegram"></i></a>
+                        <a href="#"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="#assets">Assets</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Resources</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Documentation</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Support</a></li>
+                        <li><a href="#">Audits</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Legal</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Terms of Service</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Disclaimer</a></li>
+                        <li><a href="#">Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2024 (Re) - Amplify. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Mobile menu toggle
+        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
+            // This would typically show/hide a mobile menu
+            alert('Mobile menu would open here');
+        });
+    </script>
+</body>
+</html>
