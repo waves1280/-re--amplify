@@ -101,12 +101,14 @@
             </section>
         </main>
 
-        <footer class="footer">
-            <div class="footer-container">
-                <div class="footer-brand">
-                    <div class="footer-logo"></div>
-                </div>
-                <div class="footer-right">
+<div class="footer-brand">
+    <div class="footer-logo"></div>
+</div>
+<div class="footer-disclaimer">
+    <p>© Reamplify Insurance Ltd. will be regulated by the Bermuda Monetary Authority and Barbados Financial Services Commission. Reamplify Insurance Ltd. is not authorized or licensed outside of those jurisdictions and deals only through appropriately licensed insurance brokers. The publication and delivery of the information contained within our website is not intended as a direct solicitation for the purchase of insurance coverage.</p>
+</div>
+<div class="footer-right">
+
                     <span class="footer-copyright">© 2026 reAmplify. All rights reserved.</span>
                 </div>
             </div>
@@ -445,6 +447,14 @@
                 align-items: center;
                 height: calc(100% - 1rem);
             }
+.footer-disclaimer {
+    font-family: "Inter", sans-serif;
+    font-size: 0.55rem;
+    color: #888888;
+    line-height: 1.5;
+    text-align: center;
+}
+
             .footer-brand {
                 display: flex;
                 flex-direction: column;
