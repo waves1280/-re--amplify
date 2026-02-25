@@ -449,7 +449,7 @@
             }
 .footer-disclaimer {
     font-family: "Inter", sans-serif;
-    font-size: 0.55rem;
+    font-size: 1.1rem;
     color: #888888;
     line-height: 1.5;
     text-align: center;
