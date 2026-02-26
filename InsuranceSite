@@ -23,6 +23,7 @@
                 <div class="nav-menu" id="nav-menu">
                     <a href="#home" class="nav-link">Home</a>
                     <a href="#coverages" class="nav-link">Coverages</a>
+                    <a href="agentic-underwriting.html" class="nav-link">Agentic Underwriting</a>
                     <a href="mailto:josh@reamplify.xyz" class="nav-btn nav-btn--submissions">Submissions</a>
                     <a href="https://wa.me/17732631785" target="_blank" rel="noopener noreferrer" class="nav-btn nav-btn--contact">Contact</a>
                 </div>
@@ -363,7 +364,7 @@
 
             /* ── Coverages ── */
             .coverages-section {
-                padding: 6rem 2rem 80px;
+                padding: 6rem 2rem 160px;
                 background: #ffffff;
                 position: relative;
             }
@@ -410,7 +411,7 @@
                 grid-template-columns: repeat(3, 1fr);
                 gap: 1.5rem;
             }
-            .coverage-card {
+.coverage-card {
                 background: #ffffff;
                 border: 1px solid rgba(0, 128, 255, 0.2);
                 padding: 2rem 1.75rem;
@@ -445,7 +446,7 @@
             }
             .coverage-title {
                 font-family: "Inter", sans-serif;
-                font-size: 0.7rem;
+                font-size: 1.05rem;
                 font-weight: 700;
                 color: #0040ff;
                 letter-spacing: 0.02em;
@@ -481,7 +482,7 @@
             }
             .footer-disclaimer {
                 font-family: "Inter", sans-serif;
-                font-size: 1.0rem;
+                font-size: 1.1rem;
                 color: #888888;
                 line-height: 1;
                 text-align: center;
