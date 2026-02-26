@@ -46,6 +46,24 @@
                     <div class="coverages-grid">
 
                         <div class="coverage-card">
+                            <div class="coverage-icon">&#128421;</div>
+                            <h3 class="coverage-title">Data Center</h3>
+                            <p class="coverage-description">Property and operational coverage for data center facilities, equipment, and business interruption from physical or system failures.</p>
+                        </div>
+
+                        <div class="coverage-card">
+                            <div class="coverage-icon">&#129504;</div>
+                            <h3 class="coverage-title">AI Agent Coverage</h3>
+                            <p class="coverage-description">Purpose-built protection for autonomous AI agents against data loss, prompt injection attacks, adversarial manipulation, and cybercrime resulting from agentic operations.</p>
+                        </div>
+
+                        <div class="coverage-card">
+                            <div class="coverage-icon">&#8853;</div>
+                            <h3 class="coverage-title">Semiconductor Coverage</h3>
+                            <p class="coverage-description">Guarantees the market value of semiconductor inventory, wafers, and advanced chips against supply chain disruption, physical damage, and rapid depreciation from technology cycles.</p>
+                        </div>
+
+                        <div class="coverage-card">
                             <div class="coverage-icon">&#9878;</div>
                             <h3 class="coverage-title">Directors &amp; Officers</h3>
                             <p class="coverage-description">Protection for corporate leadership against personal liability arising from management decisions, regulatory actions, and shareholder disputes.</p>
@@ -64,9 +82,9 @@
                         </div>
 
                         <div class="coverage-card">
-                            <div class="coverage-icon">&#128421;</div>
-                            <h3 class="coverage-title">Data Center</h3>
-                            <p class="coverage-description">Property and operational coverage for data center facilities, equipment, and business interruption from physical or system failures.</p>
+                            <div class="coverage-icon">&#128100;</div>
+                            <h3 class="coverage-title">Kidnap &amp; Ransom</h3>
+                            <p class="coverage-description">Crisis response and financial coverage for technology executives and key personnel facing kidnapping, extortion, wrongful detention, or cyber-enabled ransom demands.</p>
                         </div>
 
                         <div class="coverage-card">
@@ -76,27 +94,9 @@
                         </div>
 
                         <div class="coverage-card">
-                            <div class="coverage-icon">&#8853;</div>
-                            <h3 class="coverage-title">Semiconductor Coverage</h3>
-                            <p class="coverage-description">Guarantees the market value of semiconductor inventory, wafers, and advanced chips against supply chain disruption, physical damage, and rapid depreciation from technology cycles.</p>
-                        </div>
-
-                        <div class="coverage-card">
-                            <div class="coverage-icon">&#128100;</div>
-                            <h3 class="coverage-title">Kidnap &amp; Ransom</h3>
-                            <p class="coverage-description">Crisis response and financial coverage for technology executives and key personnel facing kidnapping, extortion, wrongful detention, or cyber-enabled ransom demands.</p>
-                        </div>
-
-                        <div class="coverage-card">
-                            <div class="coverage-icon">&#129504;</div>
-                            <h3 class="coverage-title">AI Agent Coverage</h3>
-                            <p class="coverage-description">Purpose-built protection for autonomous AI agents against data loss, prompt injection attacks, adversarial manipulation, and cybercrime resulting from agentic operations.</p>
-                        </div>
-
-                        <div class="coverage-card">
                             <div class="coverage-icon">&#127963;</div>
-                            <h3 class="coverage-title">Digital Asset Custody</h3>
-                            <p class="coverage-description">Institutional-grade insurance for custodians safeguarding digital assets, covering hot and cold wallet losses, key management failures, and third-party custodian risk.</p>
+                            <h3 class="coverage-title">Specialized Program Business</h3>
+                            <p class="coverage-description">Capacity and support for established MGAs delivering world class innovative programs, combining deep underwriting expertise with flexible, scalable solutions.</p>
                         </div>
 
                     </div>
