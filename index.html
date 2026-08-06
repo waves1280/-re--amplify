@@ -7,7 +7,7 @@
         <meta name="generator" content="{Astro.generator}">
         <title>reAmplify: Powering the Agentic Revolution</title>
         <meta property="og:title" content="reAmplify: Powering the Agentic Revolution">
-        <meta property="og:description" content="Covering the AI, Data Center, Agentic and Digital Asset Ecosystems">
+        <meta property="og:description" content="Powering the AI, Data Center, Digital Asset and FinTech Ecosystems">
         <meta property="og:image" content="reamplifylogo.jpg">
         <meta property="og:type" content="website">
         <meta name="twitter:card" content="summary_large_image">
@@ -17,6 +17,16 @@
         <link href="./index_files/css2" rel="stylesheet">
     </head>
     <body>
+        <div class="bg-scene" id="bgScene" aria-hidden="true">
+            <div class="bg-core-wrap">
+                <div class="bg-core-ring"></div>
+                <div class="bg-core-ring r2"></div>
+                <div class="bg-core-ring r3"></div>
+                <div class="bg-core-orb"></div>
+            </div>
+            <div class="bg-rack-row" id="bgRackRow"></div>
+            <div class="bg-floor"></div>
+        </div>
         <nav class="navbar">
             <div class="nav-container">
                 <div class="nav-brand"><img src="reamplifylogo.jpg" alt="reAmplify Insurance" class="nav-logo"></div>
@@ -36,7 +46,7 @@
                     <h1 class="hero-title">reAMPLIFY Insurance</h1>
                     <p class="hero-subtitle">Powering those building the agentic revolution</p>
                     <div class="hero-divider"></div>
-                    <p class="hero-description">Covering the AI, Data Center, Agentic and Digital Asset Ecosystems</p>
+                    <p class="hero-description">Powering the AI, Data Center, Digital Asset and FinTech Ecosystems</p>
                 </div>
             </section>
  
@@ -111,7 +121,7 @@
                     <div class="footer-logo"><img src="reamplifylogo.jpg" alt="reAmplify Insurance" style="height:32px;width:auto;"></div>
                 </div>
                 <div class="footer-disclaimer">
-                    <p>© Reamplify Insurance Ltd. will be regulated by the Barbados Financial Services Commission. Reamplify Insurance Ltd. is not authorized or licensed outside of those jurisdictions and deals only through appropriately licensed insurance brokers. The publication and delivery of the information contained within our website is not intended as a direct solicitation for the purchase of insurance coverage.</p>
+                    <p>© Reamplify Insurance Ltd. will be regulated by the Bermuda Monetary Authority and Barbados Financial Services Commission. Reamplify Insurance Ltd. is not authorized or licensed outside of those jurisdictions and deals only through appropriately licensed insurance brokers. The publication and delivery of the information contained within our website is not intended as a direct solicitation for the purchase of insurance coverage.</p>
                 </div>
                 <div class="footer-right">
                     <span class="footer-copyright">© 2026 reAmplify. All rights reserved.</span>
@@ -132,6 +142,30 @@
                     hamburger.classList.remove('active');
                 });
             });
+
+            // Build the animated background rack scene
+            const bgRow = document.getElementById('bgRackRow');
+            const bgHeights = ['back','mid','front','front','mid','back'];
+            const bgColors = [['','v','','a','',''],['v','','v','','a',''],['','v','','','v','a'],['v','','a','','v',''],['','v','','v','','a'],['a','','v','','','v']];
+            bgHeights.forEach((h, i) => {
+                const rack = document.createElement('div');
+                rack.className = 'bg-rack ' + h;
+                const slotCount = h === 'front' ? 10 : h === 'mid' ? 8 : 6;
+                for (let s = 0; s < slotCount; s++) {
+                    const slot = document.createElement('div');
+                    slot.className = 'bg-slot';
+                    const led = document.createElement('div');
+                    const colorClass = bgColors[i][s % bgColors[i].length];
+                    led.className = 'bg-led' + (colorClass ? ' ' + colorClass : '');
+                    led.style.animationDelay = (Math.random()*2).toFixed(2) + 's';
+                    const bar = document.createElement('div');
+                    bar.className = 'bg-bar';
+                    slot.appendChild(led);
+                    slot.appendChild(bar);
+                    rack.appendChild(slot);
+                }
+                bgRow.appendChild(rack);
+            });
         </script>
  
         <style>
@@ -146,36 +180,131 @@
             }
             body {
                 font-family: "Inter", sans-serif;
-                background: #ffffff;
+                background: #eef4fb;
                 color: #000000;
                 min-height: 100vh;
                 overflow-x: hidden;
                 position: relative;
             }
-            body::before {
-                content: "";
+
+            /* ── Animated data center background ── */
+            .bg-scene {
                 position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: radial-gradient(
-                        circle at 20% 20%,
-                        rgba(0, 128, 255, 0.05) 0%,
-                        transparent 50%
-                    ),
-                    radial-gradient(
-                        circle at 80% 80%,
-                        rgba(0, 64, 255, 0.03) 0%,
-                        transparent 50%
-                    ),
-                    radial-gradient(
-                        circle at 40% 40%,
-                        rgba(0, 128, 255, 0.02) 0%,
-                        transparent 30%
-                    );
-                pointer-events: none;
-                z-index: -1;
+                inset: 0;
+                z-index: 0;
+                overflow: hidden;
+                background:
+                    radial-gradient(ellipse 900px 420px at 50% 0%, rgba(37,99,235,0.10), transparent 70%),
+                    radial-gradient(ellipse 520px 320px at 12% 100%, rgba(6,182,212,0.14), transparent 70%),
+                    radial-gradient(ellipse 520px 320px at 88% 100%, rgba(139,92,246,0.14), transparent 70%),
+                    linear-gradient(180deg, #eef4fb 0%, #dbe8f7 100%);
+            }
+            .bg-floor {
+                position: absolute;
+                bottom: 0; left: 0; right: 0;
+                height: 34%;
+                background: linear-gradient(180deg, transparent, rgba(219,232,247,0.7));
+            }
+            .bg-floor::before {
+                content: "";
+                position: absolute; inset: 0;
+                background-image:
+                    linear-gradient(rgba(37,99,235,0.10) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(37,99,235,0.10) 1px, transparent 1px);
+                background-size: 60px 22px;
+                transform: perspective(320px) rotateX(58deg);
+                transform-origin: top;
+                opacity: 0.6;
+            }
+            .bg-rack-row {
+                position: absolute;
+                top: 22%;
+                left: 50%;
+                transform: translateX(-50%);
+                display: flex;
+                align-items: flex-end;
+                gap: 22px;
+            }
+            .bg-rack {
+                position: relative;
+                width: 96px;
+                background: linear-gradient(180deg, #ffffff, #eef2fb);
+                border: 1px solid #c9d7ec;
+                border-radius: 6px;
+                box-shadow: 0 10px 26px rgba(37,99,235,0.10), inset 0 0 14px rgba(255,255,255,0.6);
+                padding: 10px 8px;
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+            }
+            .bg-rack.back { height: 180px; opacity: 0.55; transform: translateY(10px) scale(0.9); }
+            .bg-rack.mid  { height: 230px; opacity: 0.8; }
+            .bg-rack.front{ height: 280px; }
+            .bg-slot {
+                position: relative;
+                height: 14px;
+                background: #eef2fa;
+                border-radius: 2px;
+                border: 1px solid rgba(37,99,235,0.06);
+                display: flex;
+                align-items: center;
+                padding: 0 6px;
+                gap: 5px;
+            }
+            .bg-led {
+                width: 5px; height: 5px;
+                border-radius: 50%;
+                background: #06b6d4;
+                box-shadow: 0 0 6px 1px rgba(6,182,212,0.7);
+                animation: bgBlink 2.4s infinite;
+            }
+            .bg-led.v { background: #8b5cf6; box-shadow: 0 0 6px 1px rgba(139,92,246,0.7); }
+            .bg-led.a { background: #f59e0b; box-shadow: 0 0 5px 1px rgba(245,158,11,0.6); animation-duration: 1.1s; }
+            @keyframes bgBlink {
+                0%, 100% { opacity: 1; }
+                45% { opacity: 1; }
+                50% { opacity: 0.2; }
+                55% { opacity: 1; }
+            }
+            .bg-bar { flex: 1; height: 2px; background: rgba(37,99,235,0.08); border-radius: 2px; }
+            .bg-core-wrap {
+                position: absolute;
+                left: 50%;
+                top: 8%;
+                transform: translate(-50%, -50%);
+                width: 150px;
+                height: 150px;
+            }
+            .bg-core-ring {
+                position: absolute; inset: 0;
+                border-radius: 50%;
+                border: 1px solid rgba(37,99,235,0.25);
+                animation: bgSpin 14s linear infinite;
+            }
+            .bg-core-ring.r2 { inset: 18px; border-color: rgba(139,92,246,0.25); animation-duration: 10s; animation-direction: reverse; }
+            .bg-core-ring.r3 { inset: 36px; border-color: rgba(6,182,212,0.35); animation-duration: 7s; }
+            @keyframes bgSpin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
+            .bg-core-orb {
+                position: absolute;
+                left: 50%; top: 50%;
+                width: 40px; height: 40px;
+                transform: translate(-50%, -50%);
+                border-radius: 50%;
+                background: radial-gradient(circle at 35% 30%, #ffffff, #06b6d4 45%, #8b5cf6 100%);
+                box-shadow: 0 0 24px 6px rgba(6,182,212,0.3), 0 0 54px 14px rgba(139,92,246,0.15);
+                animation: bgPulse 3.2s ease-in-out infinite;
+            }
+            @keyframes bgPulse {
+                0%, 100% { transform: translate(-50%,-50%) scale(1); }
+                50% { transform: translate(-50%,-50%) scale(1.12); }
+            }
+            @media (max-width: 900px) {
+                .bg-rack-row { transform: translateX(-50%) scale(0.6); top: 16%; }
+                .bg-core-wrap { top: 6%; width: 110px; height: 110px; }
+            }
+            @media (max-width: 540px) {
+                .bg-rack-row { transform: translateX(-50%) scale(0.42); top: 13%; }
+                .bg-core-wrap { top: 5%; width: 90px; height: 90px; }
             }
  
             /* ── Navbar ── */
@@ -189,8 +318,7 @@
                 border-bottom: 1px solid rgba(0, 0, 0, 0.1);
                 z-index: 1000;
                 padding: 1rem 0;
-            }
-            .nav-container {
+            }            .nav-container {
                 max-width: 1200px;
                 margin: 0 auto;
                 padding: 0 2rem;
@@ -288,7 +416,9 @@
             /* ── Main ── */
             .main-content {
                 margin-top: 80px;
-                background: #ffffff;
+                background: transparent;
+                position: relative;
+                z-index: 1;
             }
  
             /* ── Hero ── */
@@ -299,7 +429,7 @@
                 justify-content: center;
                 padding: 2rem;
                 position: relative;
-                background: #ffffff;
+                background: transparent;
             }
             .hero-section::before {
                 content: "";
@@ -366,7 +496,7 @@
             /* ── Coverages ── */
             .coverages-section {
                 padding: 6rem 2rem 160px;
-                background: #ffffff;
+                background: transparent;
                 position: relative;
             }
             .coverages-section::before {
@@ -413,7 +543,8 @@
                 gap: 1.5rem;
             }
 .coverage-card {
-                background: #ffffff;
+                background: rgba(255, 255, 255, 0.72);
+                backdrop-filter: blur(10px);
                 border: 1px solid rgba(0, 128, 255, 0.2);
                 padding: 2rem 1.75rem;
                 position: relative;
