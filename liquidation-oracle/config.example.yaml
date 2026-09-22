@@ -1,0 +1,46 @@
+# reAmplify Liquidation Oracle — Zero-Borrow / new vault (default)
+# Policy: B.1.1 Zero-Borrow; A.2.1 vault lifecycle; B.5 BTC ref; Part B Path 1
+
+mode: ZERO_BORROW  # default. BORROW_ENABLED only with Board authorization (B.1.2)
+
+# reAmplify Cell programme
+cell:
+  cell_id: "reamplify-cell-1"
+  name: "reAmplify Cell — Zero-Borrow"
+  depositor_address: "0x106d71c740aeebf6e72f06dad4129651dc65d810"
+  vault_ids:
+    - "0x002f198c46664c28f0685ba86303256e9833344a54c7b4e34483e7805f5b8d4a"
+
+indexer:
+  url: "https://babylon-vault-indexer-api.testnet.babylonlabs.io/"
+  user_agent: "reamplify-liquidation-oracle/0.1.1 (reAmplify; Joshua)"
+  timeout_seconds: 30
+  page_limit: 1000
+  max_depth: 10
+
+btc_reference:
+  baseline_usd: 100000.0          # Board-approved baseline (B.5)
+  crash_threshold_pct: 50.0       # ≥50% decline → recommend suspend new policies
+  aggregate: median
+  sources:
+    - name: coingecko
+      enabled: true
+    - name: coinbase
+      enabled: true
+
+timing_constants_business_days:
+  csa_support_notice: 2
+  tbv_challenge: 3
+  pegin_refund_timelock_calendar_days: 14
+  path1_notice_calendar_days: 30
+  path2_postmortem_business_days: 5
+
+logging:
+  level: INFO
+  json: false
+
+# --- Optional: Borrow-Enabled only (Board B.1.2) — leave unused for new vault ---
+# collateral_factor_override_bps: null
+# debt_asset_usd_prices: { "0": 1.0, "1": 1.0 }
+# divergence: { tolerance: 0.05, persistence_days: 5 }
+# escalation: { green_min: 3.0, red_min: 1.5, spoke_liquidatable_threshold: 1.0 }
