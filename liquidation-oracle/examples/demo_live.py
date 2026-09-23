@@ -3,7 +3,7 @@
 
 Illustrates:
   - Registering a new Cell vault programme (ZERO_BORROW)
-  - Live vault lifecycle from Babylon indexer (no Aave / no HF)
+  - Live vault lifecycle from Babylon Vault Indexer (Zero-Borrow; no HF)
   - Path 1 claim-driven redemption notice
   - BTC Reference Price B.5 watch + Insurance Returns scaffolding
   - Brief note on future Board-authorized Borrow-Enabled mode
@@ -65,8 +65,8 @@ def main() -> None:
             board_btc_baseline_usd=config.btc_reference.baseline_usd,
             path1_notice_calendar_days=config.timing.path1_notice_calendar_days,
             notes=[
-                "New reAmplify vault programme — Zero-Borrow posture (B.1.1).",
-                "No Aave / no Internal HF monitoring unless Board authorizes B.1.2.",
+                "reAmplify vault / Cell programme — Zero-Borrow posture (B.1.1).",
+                "Internal HF monitoring only if Board authorizes BORROW_ENABLED (B.1.2).",
             ],
         )
         oracle.register_cell(programme)

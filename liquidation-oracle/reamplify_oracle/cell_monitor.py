@@ -1,8 +1,9 @@
 """Cell / vault programme monitoring for Zero-Borrow (A.2.1 / B.1.1).
 
-Primary path for reAmplify's new vault — NO borrowing, NO on-chain liquidation risk.
-Tracks vault lifecycle, activities (deposit/redeem/liquidation/claim_expired),
-provider/fees/ackCount/expiration — without requiring aavePosition.
+Primary path for the reAmplify vault / Cell programme — NO borrowing,
+NO on-chain liquidation risk from debt. Tracks vault lifecycle, activities
+(deposit/redeem/liquidation/claim_expired), provider/fees/ackCount/expiration
+via Babylon Vault Indexer ``vault*`` entities.
 """
 
 from __future__ import annotations
@@ -136,7 +137,7 @@ class ZeroBorrowReport:
 
 
 class CellVaultMonitor:
-    """Zero-Borrow Cell / vault monitor — does not require aavePosition."""
+    """Zero-Borrow Cell / vault monitor — vault* indexer entities only."""
 
     def __init__(
         self,
@@ -403,7 +404,7 @@ class CellVaultMonitor:
                 "Internal HF monitoring is N/A unless Board authorizes BORROW_ENABLED (B.1.2).",
                 "Primary signals: vault lifecycle status, deposit/redeem/claim_expired activities, "
                 "provider/fees/ackCount/expiration.",
-                "reAmplify new vault — Babylon indexer vault entities only; no Aave required.",
+                "reAmplify vault / Cell — Babylon Vault Indexer vault* entities only.",
             ]
             on_chain_risk = False
             hf_applicable = False

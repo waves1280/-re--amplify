@@ -1,7 +1,6 @@
-"""Babylon TBV Vault Indexer GraphQL client.
+"""Babylon Vault Indexer GraphQL client for reAmplify vault / Cell programmes.
 
-Primary (Zero-Borrow / A.2.1): vault, vaults, vaultActivitys, vaultProvider, fees, _meta.
-Optional (Borrow-Enabled / Board-authorized B.1.2 only): aavePosition*, aaveReserve*, aaveVaultStatus*.
+Entities: vault, vaults, vaultActivitys, vaultProvider, vaultFeeEscrow, feeConfigs, _meta.
 
 Client rules:
 - POST GraphQL, Content-Type application/json
@@ -23,7 +22,6 @@ from reamplify_oracle.models import (
     CollateralSlice,
     IndexerFreshness,
     PositionState,
-    ReserveInfo,
 )
 
 logger = logging.getLogger(__name__)
@@ -111,118 +109,6 @@ class IndexerClient:
             block_number=block_number,
             block_timestamp=block_timestamp,
         )
-
-    def get_aave_position(self, depositor_address: str) -> dict[str, Any] | None:
-        """Optional Borrow-Enabled only (B.1.2). Not used for Zero-Borrow Cell monitoring."""
-        query = """
-        query AavePosition($addr: String!) {
-          aavePosition(depositorAddress: $addr) {
-            depositorAddress
-            proxyContract
-            totalCollateral
-            createdAt
-            updatedAt
-            blockNumber
-            transactionHash
-            collaterals(limit: 1000, offset: 0, where: { removedAt: null }) {
-              items {
-                vaultId
-                amount
-                addedAt
-                removedAt
-                liquidationIndex
-                vault {
-                  id
-                  status
-                  amount
-                  depositor
-                  inUse
-                }
-              }
-              totalCount
-            }
-          }
-        }
-        """
-        data = self.execute(query, {"addr": depositor_address.lower()})
-        return data.get("aavePosition")
-
-    def get_aave_vault_status(self, vault_id: str) -> dict[str, Any] | None:
-        query = """
-        query VaultStatus($vid: String!) {
-          aaveVaultStatus(vaultId: $vid) {
-            vaultId
-            applicationEntryPoint
-            status
-            metadata
-            updatedAt
-          }
-        }
-        """
-        data = self.execute(query, {"vid": vault_id})
-        return data.get("aaveVaultStatus")
-
-    def get_aave_vault_statuses(
-        self, vault_ids: list[str] | None = None, *, limit: int = 100, offset: int = 0
-    ) -> list[dict[str, Any]]:
-        # Note: plural field is `aaveVaultStatuss` (indexer spelling).
-        limit = min(limit, MAX_LIMIT)
-        if vault_ids:
-            items: list[dict[str, Any]] = []
-            for vid in vault_ids:
-                st = self.get_aave_vault_status(vid)
-                if st:
-                    items.append(st)
-            return items
-        query = """
-        query VaultStatuses($limit: Int!, $offset: Int!) {
-          aaveVaultStatuss(limit: $limit, offset: $offset) {
-            items {
-              vaultId
-              applicationEntryPoint
-              status
-              metadata
-              updatedAt
-            }
-            totalCount
-          }
-        }
-        """
-        data = self.execute(query, {"limit": limit, "offset": offset})
-        page = data.get("aaveVaultStatuss") or {}
-        return list(page.get("items") or [])
-
-    def get_reserves(self) -> dict[str, ReserveInfo]:
-        query = """
-        {
-          aaveReserves(limit: 1000, offset: 0) {
-            items {
-              id
-              underlying
-              decimals
-              collateralFactor
-              borrowable
-              paused
-              frozen
-              underlyingToken { address symbol name decimals }
-            }
-          }
-        }
-        """
-        data = self.execute(query)
-        out: dict[str, ReserveInfo] = {}
-        for item in (data.get("aaveReserves") or {}).get("items") or []:
-            rid = str(item["id"])
-            tok = item.get("underlyingToken") or {}
-            out[rid] = ReserveInfo(
-                reserve_id=rid,
-                underlying=item["underlying"],
-                decimals=int(item["decimals"]),
-                collateral_factor_bps=int(item.get("collateralFactor") or 0),
-                symbol=tok.get("symbol"),
-                borrowable=bool(item.get("borrowable")),
-            )
-        return out
 
     def iter_vault_activities(
         self,
@@ -396,42 +282,39 @@ class IndexerClient:
         *,
         debt_usd_prices: dict[str, float] | None = None,
         btc_usd: float | None = None,
+        debt_reserve_decimals: dict[str, int] | None = None,
+        debt_reserve_symbols: dict[str, str] | None = None,
     ) -> PositionState:
-        """Assemble full position: collaterals, vault statuses, debt from activities, meta."""
+        """Assemble depositor snapshot from vault* entities + vaultActivity debt nets.
+
+        Collateral comes from ``vaults`` for the depositor. Outstanding debt is
+        reconstructed as net borrow − repay per ``debtReserveId`` from activities.
+        Reserve decimals/symbols are optional overrides (no on-indexer reserve feed).
+        """
         addr = depositor_address.lower()
         freshness = self.get_meta()
-        position = self.get_aave_position(addr)
-        reserves = self.get_reserves()
 
         collaterals: list[CollateralSlice] = []
         total_collateral_sats = 0
-        proxy = None
         liquidated_vault_ids: list[str] = []
 
-        if position:
-            proxy = position.get("proxyContract")
-            total_collateral_sats = _as_int(position.get("totalCollateral")) or 0
-            items = ((position.get("collaterals") or {}).get("items")) or []
-            vault_ids = [c["vaultId"] for c in items]
-            status_map = {
-                s["vaultId"]: s for s in self.get_aave_vault_statuses(vault_ids)
-            }
-            for c in items:
-                vault = c.get("vault") or {}
-                vstatus = vault.get("status")
-                if vstatus == "liquidated":
-                    liquidated_vault_ids.append(c["vaultId"])
-                amount = _as_int(c.get("amount")) or 0
-                collaterals.append(
-                    CollateralSlice(
-                        vault_id=c["vaultId"],
-                        amount_sats=amount,
-                        vault_status=vstatus,
-                        aave_vault_status=(status_map.get(c["vaultId"]) or {}).get("status"),
-                        liquidation_index=int(c.get("liquidationIndex") or 0),
-                        in_use=vault.get("inUse"),
-                    )
+        vaults = self.get_vaults_for_depositor(addr)
+        for v in vaults:
+            vid = str(v["id"])
+            amount = _as_int(v.get("amount")) or 0
+            vstatus = v.get("status")
+            if vstatus == "liquidated":
+                liquidated_vault_ids.append(vid)
+            total_collateral_sats += amount
+            collaterals.append(
+                CollateralSlice(
+                    vault_id=vid,
+                    amount_sats=amount,
+                    vault_status=vstatus,
+                    liquidation_index=0,
+                    in_use=v.get("inUse"),
                 )
+            )
 
         # Reconstruct outstanding debt: net borrow − repay per debtReserveId
         from reamplify_oracle.models import DebtByReserve
@@ -459,14 +342,18 @@ class IndexerClient:
                 nets[rid] = nets.get(rid, 0) - amt
 
         debt_prices = debt_usd_prices or {}
+        # Scaffolding defaults until a reAmplify-native reserve metadata feed exists.
+        default_decimals = {"0": 6, "1": 6, "2": 8, "3": 8}
+        decimals_map = {**default_decimals, **(debt_reserve_decimals or {})}
+        symbols_map = dict(debt_reserve_symbols or {})
+
         debt_rows: list[DebtByReserve] = []
         for rid, net in sorted(nets.items(), key=lambda x: x[0]):
             if net <= 0:
                 # Fully repaid (or over-repaid in indexer reconstruction) → no outstanding
                 continue
-            info = reserves.get(rid)
-            decimals = info.decimals if info else 18
-            symbol = info.symbol if info else None
+            decimals = int(decimals_map.get(rid, 18))
+            symbol = symbols_map.get(rid)
             human = net / (10**decimals)
             if rid in debt_prices:
                 px = debt_prices[rid]
@@ -491,7 +378,7 @@ class IndexerClient:
 
         return PositionState(
             depositor_address=addr,
-            proxy_contract=proxy,
+            proxy_contract=None,
             total_collateral_sats=total_collateral_sats,
             collaterals=collaterals,
             debt_by_reserve=debt_rows,
@@ -500,6 +387,8 @@ class IndexerClient:
             liquidated_vault_ids=liquidated_vault_ids,
             freshness=freshness,
         )
+
+
 
 
 def _as_int(value: Any) -> int | None:

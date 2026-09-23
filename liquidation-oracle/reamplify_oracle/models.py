@@ -55,7 +55,6 @@ class CollateralSlice:
     vault_id: str
     amount_sats: int
     vault_status: str | None
-    aave_vault_status: str | None
     liquidation_index: int = 0
     in_use: bool | None = None
 

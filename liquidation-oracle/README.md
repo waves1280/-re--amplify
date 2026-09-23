@@ -7,11 +7,12 @@ Python package for Joshua / reAmplify’s **new vault** programme against the
 
 reAmplify’s vault is **Zero-Borrow by default** (policy **B.1.1 / A.2.1**):
 
+- Monitoring uses Babylon Vault Indexer `vault` / `vaults` / `vaultActivity` / provider / fees.
 - **No on-chain liquidation risk** from borrowing while in Zero-Borrow.
 - **Internal HF is N/A** unless the Board later authorizes **BORROW_ENABLED (B.1.2)**.
 - Primary redemption path is **Path 1** (claim-driven, ≥30 days notice).
 
-Borrow-Enabled / Internal HF code remains in-package but is **quarantined** and must not be the main ops path.
+Borrow-Enabled / Internal HF scaffolding remains in-package (Board-gated) and must not be the main ops path. It does **not** use any external lending-protocol debt feed — collateral from `vault*`, debt from vaultActivity nets / overrides.
 
 ## Quick start
 
@@ -84,7 +85,7 @@ with LiquidationOracle(config) as oracle:
 | Module | Policy | Role |
 |--------|--------|------|
 | `cell_monitor.py` | A.2.1 / B.1.1 | **Primary** Cell/vault lifecycle monitor |
-| `indexer_client.py` | A.1 / A.2.1 | GraphQL client (UA, paging); vault* primary |
+| `indexer_client.py` | A.1 / A.2.1 | GraphQL client (UA, paging); vault* / provider / fees |
 | `price_oracle.py` | A.3.4 / B.5 | BTC reference (≥2 sources); suspend watch |
 | `insurance_returns.py` | A.3.2 | Premiums/claims/reserves scaffolding |
 | `redemption.py` | Part B | Path 1 primary; Path 2 rare; Path 3 WOTS |
@@ -107,7 +108,7 @@ oracle.set_mode(OperatingMode.BORROW_ENABLED)  # Board authorization required
 hf = oracle.evaluate_depositor_borrow_enabled("0x…")
 ```
 
-If `aavePosition` is null / no debt → report **Zero-Borrow posture** (never CRITICAL HF).
+If there is no outstanding debt (vaultActivity borrow−repay net = 0) → report **Zero-Borrow posture** (never CRITICAL HF). Collateral factor comes from Board `collateral_factor_override_bps`.
 
 ## Redemption (Part B)
 
@@ -124,8 +125,7 @@ Timing constants: CSA Support Notice **2 BD**, TBV challenge **~3 days**, peg-in
 - Custom **User-Agent** required (else 403).
 - BigInts are **strings**; `limit` ≤ 1000; page with `offset`.
 - **No native HF field** — HF only if Borrow-Enabled + off-indexer compute / Spoke adapter.
-- Plural quirk: `aaveVaultStatuss` (unused in Zero-Borrow path).
-- reAmplify new vault does **not** depend on Aave entities.
+- reAmplify vault / Cell programme uses Babylon Vault Indexer `vault*` entities only.
 
 ## Package layout
 
@@ -135,8 +135,87 @@ reamplify-liquidation-oracle/
   requirements.txt
   config.example.yaml
   README.md
+  contracts/                 # optional on-chain monitoring oracle
   reamplify_oracle/
+    keeper.py                # optional relayer ([keeper] extra)
+    abi/
   examples/demo_live.py
+  examples/demo_keeper_dry_run.py
+  tests/
+```
+
+
+## On-chain risk oracle (optional)
+
+This package can **publish** monitoring snapshots to a Solidity contract so Cell
+programmes and downstream apps can read Internal HF / zone on-chain.
+
+```
+Indexer / BTC refs  →  LiquidationOracle / CellVaultMonitor (off-chain)
+                              ↓
+                     RiskOracleKeeper (Python relayer)
+                              ↓
+                     ReamplifyRiskOracle.updateRisk (on-chain)
+                              ↓
+                     Cell ops / app consumers (read getRisk)
+```
+
+**This does NOT replace Spoke / Babylon / Chainlink liquidation pricing.**
+Spoke liquidation remains driven by Babylon’s price feeds. `ReamplifyRiskOracle`
+is a *monitoring* oracle only — no fake Chainlink inheritance.
+
+### Contracts
+
+See `contracts/`:
+
+- `IReamplifyRiskOracle.sol` — interface (`RiskZone`, `RiskSnapshot`, events)
+- `ReamplifyRiskOracle.sol` — owner + keepers; `updateRisk` / `updateRiskBatch` / getters
+- `contracts/README.md` — deploy, roles, consumer notes
+
+`internalHF` uses **1e18** precision; **`type(uint256).max` = infinite / no debt**
+(B.1 Zero-Borrow NatSpec). Zones: `0 ZERO_BORROW`, `1 GREEN`, `2 RED`, `3 CRITICAL`.
+
+### Keeper env vars
+
+| Env | Meaning |
+|-----|---------|
+| `REAMPLIFY_RISK_ORACLE_ADDRESS` | Deployed oracle address |
+| `REAMPLIFY_KEEPER_KEY` | Keeper private key (**never logged / never commit**) |
+| `REAMPLIFY_RPC_URL` | Web3 HTTP RPC (alias: `WEB3_RPC_URL`) |
+| `REAMPLIFY_KEEPER_LIVE` | Must be `1` **and** `--live` / `dry_run=False` to send txs |
+
+Dry-run is the **default** — it evaluates the vault/depositor and prints calldata
+without broadcasting.
+
+```bash
+pip install -e ".[dev,keeper]"
+
+# Dry-run (safe default)
+python examples/demo_keeper_dry_run.py
+python -m reamplify_oracle.keeper --vault 0x002f198c…
+python -m reamplify_oracle.keeper --depositor 0x106d71c7…
+
+# Live (explicit)
+export REAMPLIFY_RISK_ORACLE_ADDRESS=0x…
+export REAMPLIFY_RPC_URL=https://…
+export REAMPLIFY_KEEPER_KEY=0x…          # keep secret
+export REAMPLIFY_KEEPER_LIVE=1
+python -m reamplify_oracle.keeper --vault 0x… --live
+```
+
+ABI: `reamplify_oracle/abi/ReamplifyRiskOracle.json`.
+
+### Package layout (updated)
+
+```
+reamplify-liquidation-oracle/
+  contracts/           # Solidity monitoring oracle
+  reamplify_oracle/
+    keeper.py          # RiskOracleKeeper relayer
+    abi/ReamplifyRiskOracle.json
+  examples/
+    demo_live.py
+    demo_keeper_dry_run.py
   tests/
 ```
 

@@ -1,0 +1,138 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [{"name": "initialOwner", "type": "address", "internalType": "address"}],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateRisk",
+    "inputs": [
+      {"name": "vaultId", "type": "bytes32", "internalType": "bytes32"},
+      {"name": "depositor", "type": "address", "internalType": "address"},
+      {"name": "internalHF", "type": "uint256", "internalType": "uint256"},
+      {"name": "zone", "type": "uint8", "internalType": "enum IReamplifyRiskOracle.RiskZone"},
+      {"name": "btcRefPriceUsd", "type": "uint256", "internalType": "uint256"},
+      {"name": "recommendSuspendNewPolicies", "type": "bool", "internalType": "bool"},
+      {"name": "indexerBlock", "type": "uint64", "internalType": "uint64"}
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "updateRiskBatch",
+    "inputs": [
+      {"name": "vaultIds", "type": "bytes32[]", "internalType": "bytes32[]"},
+      {"name": "depositors", "type": "address[]", "internalType": "address[]"},
+      {"name": "internalHFs", "type": "uint256[]", "internalType": "uint256[]"},
+      {"name": "zones", "type": "uint8[]", "internalType": "enum IReamplifyRiskOracle.RiskZone[]"},
+      {"name": "btcRefPriceUsds", "type": "uint256[]", "internalType": "uint256[]"},
+      {"name": "recommendSuspendNewPolicies", "type": "bool[]", "internalType": "bool[]"},
+      {"name": "indexerBlocks", "type": "uint64[]", "internalType": "uint64[]"}
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getRisk",
+    "inputs": [{"name": "vaultId", "type": "bytes32", "internalType": "bytes32"}],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct IReamplifyRiskOracle.RiskSnapshot",
+        "components": [
+          {"name": "vaultId", "type": "bytes32", "internalType": "bytes32"},
+          {"name": "depositor", "type": "address", "internalType": "address"},
+          {"name": "internalHF", "type": "uint256", "internalType": "uint256"},
+          {"name": "zone", "type": "uint8", "internalType": "enum IReamplifyRiskOracle.RiskZone"},
+          {"name": "btcRefPriceUsd", "type": "uint256", "internalType": "uint256"},
+          {"name": "recommendSuspendNewPolicies", "type": "bool", "internalType": "bool"},
+          {"name": "updatedAt", "type": "uint64", "internalType": "uint64"},
+          {"name": "indexerBlock", "type": "uint64", "internalType": "uint64"}
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getRiskByDepositor",
+    "inputs": [{"name": "depositor", "type": "address", "internalType": "address"}],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct IReamplifyRiskOracle.RiskSnapshot",
+        "components": [
+          {"name": "vaultId", "type": "bytes32", "internalType": "bytes32"},
+          {"name": "depositor", "type": "address", "internalType": "address"},
+          {"name": "internalHF", "type": "uint256", "internalType": "uint256"},
+          {"name": "zone", "type": "uint8", "internalType": "enum IReamplifyRiskOracle.RiskZone"},
+          {"name": "btcRefPriceUsd", "type": "uint256", "internalType": "uint256"},
+          {"name": "recommendSuspendNewPolicies", "type": "bool", "internalType": "bool"},
+          {"name": "updatedAt", "type": "uint64", "internalType": "uint64"},
+          {"name": "indexerBlock", "type": "uint64", "internalType": "uint64"}
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "setKeeper",
+    "inputs": [
+      {"name": "keeper", "type": "address", "internalType": "address"},
+      {"name": "allowed", "type": "bool", "internalType": "bool"}
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "isKeeper",
+    "inputs": [{"name": "account", "type": "address", "internalType": "address"}],
+    "outputs": [{"name": "", "type": "bool", "internalType": "bool"}],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "owner",
+    "inputs": [],
+    "outputs": [{"name": "", "type": "address", "internalType": "address"}],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "transferOwnership",
+    "inputs": [{"name": "newOwner", "type": "address", "internalType": "address"}],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "RiskUpdated",
+    "inputs": [
+      {"name": "vaultId", "type": "bytes32", "indexed": true, "internalType": "bytes32"},
+      {"name": "depositor", "type": "address", "indexed": true, "internalType": "address"},
+      {"name": "internalHF", "type": "uint256", "indexed": false, "internalType": "uint256"},
+      {"name": "zone", "type": "uint8", "indexed": false, "internalType": "enum IReamplifyRiskOracle.RiskZone"},
+      {"name": "btcRefPriceUsd", "type": "uint256", "indexed": false, "internalType": "uint256"},
+      {"name": "recommendSuspendNewPolicies", "type": "bool", "indexed": false, "internalType": "bool"},
+      {"name": "updatedAt", "type": "uint64", "indexed": false, "internalType": "uint64"},
+      {"name": "indexerBlock", "type": "uint64", "indexed": false, "internalType": "uint64"}
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "KeeperUpdated",
+    "inputs": [
+      {"name": "keeper", "type": "address", "indexed": true, "internalType": "address"},
+      {"name": "allowed", "type": "bool", "indexed": false, "internalType": "bool"}
+    ],
+    "anonymous": false
+  }
+]

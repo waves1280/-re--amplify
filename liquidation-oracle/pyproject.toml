@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "reamplify-liquidation-oracle"
-version = "0.1.1"
+version = "0.2.0"
 description = "reAmplify Liquidation Oracle and Liquidation/Redemption Rules (Babylon TBV Vault Indexer)"
 readme = "README.md"
 requires-python = ">=3.11"
@@ -17,13 +17,18 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0", "pytest-httpx>=0.30"]
+keeper = ["web3>=6.0", "eth-account>=0.10"]
 
 [project.scripts]
 reamplify-oracle-demo = "examples.demo_live:main"
+reamplify-oracle-keeper = "reamplify_oracle.keeper:main"
 
 [tool.setuptools.packages.find]
 where = ["."]
 include = ["reamplify_oracle*"]
+
+[tool.setuptools.package-data]
+reamplify_oracle = ["abi/*.json"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

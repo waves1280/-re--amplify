@@ -1,4 +1,4 @@
-"""Zero-Borrow Cell / vault evaluation — no aavePosition, never CRITICAL."""
+"""Zero-Borrow Cell / vault evaluation — vault* path, never CRITICAL."""
 
 from __future__ import annotations
 
@@ -37,7 +37,7 @@ def test_zero_borrow_activity_types_exclude_borrow_repay():
     assert "repay" not in ZERO_BORROW_ACTIVITY_TYPES
 
 
-def test_evaluate_vault_without_aave_is_zero_borrow_not_critical():
+def test_evaluate_vault_zero_borrow_not_critical():
     indexer = MagicMock()
     indexer.get_meta.return_value = MagicMock(
         chain_id="11155111", block_number=1, block_timestamp=2, raw_status={}
@@ -142,7 +142,7 @@ def test_borrow_enabled_entrypoint_blocked_in_zero_borrow():
 
 
 def test_no_position_borrow_path_not_critical():
-    """When Board enables borrow but depositor has no aavePosition/debt → ZERO_BORROW zone."""
+    """When Board enables borrow but depositor has no outstanding debt → ZERO_BORROW zone."""
     from reamplify_oracle.health_factor import build_hf_report
     from reamplify_oracle.models import PositionState
 

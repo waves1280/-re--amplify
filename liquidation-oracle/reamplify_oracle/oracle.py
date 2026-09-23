@@ -1,10 +1,11 @@
 """LiquidationOracle facade.
 
-Primary path (reAmplify new vault): Zero-Borrow Cell / vault lifecycle monitoring
-via ``evaluate_vault`` / ``evaluate_cell`` — no Aave, no Internal HF.
+Primary path (reAmplify vault / Cell): Zero-Borrow lifecycle monitoring via
+``evaluate_vault`` / ``evaluate_cell`` — vault* indexer entities; no Internal HF.
 
 Optional Borrow-Enabled (Board-authorized B.1.2 only):
-``evaluate_depositor_borrow_enabled`` — quarantined; requires explicit mode flip.
+``evaluate_depositor_borrow_enabled`` — Internal HF scaffolding from vault
+collateral + vaultActivity debt nets (or explicit overrides); Board-gated.
 """
 
 from __future__ import annotations
@@ -96,7 +97,7 @@ class LiquidationOracle:
         depositor_address: str | None = None,
         vault_ids: list[str] | None = None,
     ) -> ZeroBorrowReport:
-        """Evaluate a Cell programme without requiring aavePosition."""
+        """Evaluate a Cell programme from vault* indexer state."""
         if cell is None:
             cell = CellProgrammeConfig(
                 cell_id="ad-hoc",
@@ -168,7 +169,7 @@ class LiquidationOracle:
         return self._evaluate_borrow_enabled(depositor_address)
 
     def _evaluate_borrow_enabled(self, depositor_address: str) -> HealthFactorReport:
-        """Quarantined Borrow-Enabled path — uses optional indexer aave* entities."""
+        """Board-gated Borrow-Enabled path — Internal HF from vault + activity debt."""
         btc_ref = self.price_oracle.fetch()
         debt_prices = dict(self.config.debt_asset_usd_prices)
         if "2" not in debt_prices:
@@ -180,24 +181,7 @@ class LiquidationOracle:
             btc_usd=btc_ref.price_usd,
         )
 
-        # No aavePosition / no debt → clean Zero-Borrow posture (never CRITICAL)
-        if position.proxy_contract is None and position.is_zero_debt:
-            report = build_hf_report(
-                position,
-                mode=OperatingMode.ZERO_BORROW,
-                collateral_factor=0.0,
-                btc_ref=btc_ref,
-                escalation=self.config.escalation,
-                spoke_hf=None,
-            )
-            report.operating_mode = OperatingMode.BORROW_ENABLED.value
-            report.notes.append(
-                "No aavePosition / no outstanding debt — reporting Zero-Borrow posture "
-                "(not CRITICAL). BORROW_ENABLED HF N/A until debt exists."
-            )
-            emit_zone_alerts(report)
-            return report
-
+        # No outstanding debt → clean Zero-Borrow posture (never CRITICAL)
         if position.is_zero_debt:
             report = build_hf_report(
                 position,
@@ -207,14 +191,18 @@ class LiquidationOracle:
                 escalation=self.config.escalation,
                 spoke_hf=None,
             )
-            # classify_zone with hf=None → ZERO_BORROW
+            report.notes.append(
+                "No outstanding debt from vaultActivity borrow/repay nets — "
+                "reporting Zero-Borrow posture (not CRITICAL). "
+                "BORROW_ENABLED Internal HF N/A until debt exists."
+            )
             emit_zone_alerts(report)
             self.divergence.evaluate(report)
             return report
 
-        reserves = self.indexer.get_reserves()
+        # CF from Board override (or empty reserve map → 0 until override configured)
         cf = resolve_collateral_factor(
-            reserves,
+            {},
             override_bps=self.config.collateral_factor_override_bps,
         )
         spoke_hf = self.spoke_hf_provider.get_spoke_health_factor(depositor_address)
