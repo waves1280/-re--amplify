@@ -7,7 +7,6 @@ Python package for Joshua / reAmplify’s **new vault** programme against the
 
 reAmplify’s vault is **Zero-Borrow by default** (policy **B.1.1 / A.2.1**):
 
-- **No Aave required.** Monitoring uses indexer `vault` / `vaults` / `vaultActivity` / provider / fees.
 - **No on-chain liquidation risk** from borrowing while in Zero-Borrow.
 - **Internal HF is N/A** unless the Board later authorizes **BORROW_ENABLED (B.1.2)**.
 - Primary redemption path is **Path 1** (claim-driven, ≥30 days notice).
@@ -85,7 +84,7 @@ with LiquidationOracle(config) as oracle:
 | Module | Policy | Role |
 |--------|--------|------|
 | `cell_monitor.py` | A.2.1 / B.1.1 | **Primary** Cell/vault lifecycle monitor |
-| `indexer_client.py` | A.1 / A.2.1 | GraphQL client (UA, paging); vault* primary; aave* optional |
+| `indexer_client.py` | A.1 / A.2.1 | GraphQL client (UA, paging); vault* primary |
 | `price_oracle.py` | A.3.4 / B.5 | BTC reference (≥2 sources); suspend watch |
 | `insurance_returns.py` | A.3.2 | Premiums/claims/reserves scaffolding |
 | `redemption.py` | Part B | Path 1 primary; Path 2 rare; Path 3 WOTS |
