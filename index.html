@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#05070a">
     <title>ReAmplify: Powering the Agentic Revolution</title>
+    <meta name="description" content="Covering the AI, Data Center, Digital Asset and FinTech Ecosystems.">
     <link rel="icon" type="image/jpeg" href="reamplifylogo.jpg">
     <link rel="apple-touch-icon" href="reamplifylogo.jpg">
     <meta property="og:title" content="ReAmplify: Powering the Agentic Revolution">
@@ -12,69 +14,321 @@
     <meta property="og:type" content="website">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:image" content="reamplifylogo.jpg">
-    <script src="https://cdn.tailwindcss.com"></script>
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="preload" as="image" href="Data%20Center%20Broad.jpeg" type="image/jpeg" fetchpriority="high">
+    <link rel="preload" as="image" href="reamplifylogo.jpg" type="image/jpeg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
+
+    <script defer src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/@phosphor-icons/web"></script>
     <script>
-        tailwind.config = { theme: { extend: {
-            fontFamily: { sans: ['Inter', 'sans-serif'], editorial: ['Playfair Display', 'serif'] },
-            colors: { institutional: { 950: '#05070a', 900: '#0a0d14', 800: '#111622', 700: '#1d2435', 600: '#2a3449' }, brand: { accent: '#3b82f6' } }
-        }} };
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        editorial: ['Playfair Display', 'serif']
+                    },
+                    colors: {
+                        institutional: {
+                            950: '#05070a',
+                            900: '#0a0d14',
+                            800: '#111622',
+                            700: '#1d2435',
+                            600: '#2a3449'
+                        },
+                        brand: { accent: '#3b82f6' }
+                    }
+                }
+            }
+        };
     </script>
+
     <style>
-        body { background-color: #05070a; color: #f8fafc; -webkit-font-smoothing: antialiased; }
-        .bg-grid { background-size: 40px 40px; background-image: linear-gradient(to right, rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.02) 1px, transparent 1px); }
-        .tear-sheet-highlight { font-family: 'Playfair Display', serif; font-style: italic; font-weight: 500; color: #3b82f6; position: relative; display: inline-block; }
-        .bento-card { transition: all .4s cubic-bezier(.16,1,.3,1); }
-        .bento-card:hover { border-color: #3b82f6; background-color: #111622; box-shadow: 0 10px 40px -10px rgba(59,130,246,.1); transform: translateY(-4px); }
-        .brand-mark { width: 2rem; height: 2rem; object-fit: cover; object-position: center; border-radius: .375rem; }
-        #coverages .coverage-image { width: 100%; height: 100%; object-fit: cover; object-position: center; opacity: .45; mix-blend-mode: luminosity; transform: scale(1.05); transition: transform .6s ease, opacity .4s ease; }
-        .bento-card:hover .coverage-image { opacity: .55; transform: scale(1.1); }
+        :root {
+            color-scheme: dark;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #05070a;
+            color: #f8fafc;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        .bg-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(255,255,255,.02) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,.02) 1px, transparent 1px);
+        }
+
+        .hero-glow {
+            filter: blur(120px);
+            opacity: 0.45;
+        }
+
+        .tear-sheet-highlight {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-weight: 500;
+            color: #3b82f6;
+            position: relative;
+            display: inline-block;
+        }
+
+        .nav-shell {
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .brand-mark {
+            width: 2rem;
+            height: 2rem;
+            object-fit: cover;
+            object-position: center;
+            border-radius: .375rem;
+            display: block;
+        }
+
+        .bento-card {
+            transition: all .4s cubic-bezier(.16,1,.3,1);
+        }
+
+        .bento-card:hover {
+            border-color: #3b82f6;
+            background-color: #111622;
+            box-shadow: 0 10px 40px -10px rgba(59,130,246,.1);
+            transform: translateY(-4px);
+        }
+
+        #coverages .coverage-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            opacity: .45;
+            mix-blend-mode: luminosity;
+            transform: scale(1.05);
+            transition: transform .6s ease, opacity .6s ease;
+        }
+
+        .bento-card:hover .coverage-image {
+            opacity: .55;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 640px) {
+            .nav-shell {
+                backdrop-filter: none;
+                -webkit-backdrop-filter: none;
+            }
+
+            .hero-glow {
+                display: none;
+            }
+
+            #coverages .coverage-image {
+                opacity: .65;
+                mix-blend-mode: normal;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
     </style>
 </head>
 <body class="selection:bg-brand-accent selection:text-white">
-    <nav class="fixed w-full top-0 z-50 border-b border-white/5 bg-institutional-950/80 backdrop-blur-md">
+    <nav class="nav-shell fixed w-full top-0 z-50 border-b border-white/5 bg-institutional-950/80">
         <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <a href="/newindex.html" class="flex items-center gap-3 cursor-pointer" aria-label="ReAmplify home"><img src="reamplifylogo.jpg" alt="ReAmplify Logo" class="brand-mark"><span class="text-2xl tracking-tight text-white font-semibold">ReAmplify</span></a>
-            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400"><a href="#coverages" class="hover:text-white transition-colors">Coverages</a><a href="#regulatory" class="hover:text-white transition-colors">Regulatory</a></div>
-            <a href="mailto:info@reamplify.insure" class="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded bg-white px-3 py-2 text-xs font-semibold leading-tight text-institutional-950 transition-colors hover:bg-slate-200">Contact Us</a>
+            <a href="/newindex.html" class="flex items-center gap-3 cursor-pointer" aria-label="ReAmplify home">
+                <img src="reamplifylogo.jpg" width="32" height="32" alt="ReAmplify Logo" class="brand-mark">
+                <span class="text-lg md:text-xl font-semibold tracking-tight text-white">ReAmplify</span>
+            </a>
+            <div class="hidden md:flex gap-8 text-sm font-medium text-slate-400">
+                <a href="#coverages" class="hover:text-white transition-colors">Coverages</a>
+                <a href="#regulatory" class="hover:text-white transition-colors">Regulatory</a>
+                <a href="#insight" class="hover:text-white transition-colors">Insights</a>
+            </div>
+            <a href="mailto:info@reamplify.insure" class="inline-flex shrink-0 items-center justify-center whitespace-nowrap rounded bg-white px-3 py-2 text-xs font-semibold leading-tight text-institutional-950 transition-colors hover:bg-slate-200">
+                Request an intro
+            </a>
         </div>
     </nav>
+
     <main>
         <section class="relative pt-48 pb-32 md:pt-64 md:pb-40 px-6 overflow-hidden bg-grid">
-            <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-brand-accent/5 blur-[120px] rounded-full pointer-events-none"></div>
+            <div class="hero-glow absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-brand-accent/5 rounded-full pointer-events-none"></div>
             <div class="max-w-7xl mx-auto relative z-10 flex flex-col items-center text-center">
-                <div class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-slate-300 text-xs font-semibold tracking-widest uppercase mb-8"><span class="w-1.5 h-1.5 rounded-full bg-brand-accent"></span> ReAmplify Insurance</div>
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-[1.05] mb-8 text-white max-w-5xl mx-auto">Powering those building <br class="hidden md:block"><span class="tear-sheet-highlight">the agentic revolution</span></h1>
-                <p class="text-lg md:text-xl text-slate-400 font-light max-w-2xl leading-relaxed mb-16 mx-auto">Covering the AI, Data Center, Digital Asset and FinTech Ecosystems.</p>
-                <a href="#coverages" class="group flex flex-col items-center justify-center gap-3 text-sm font-semibold text-slate-500 hover:text-white transition-colors mx-auto"><span class="uppercase tracking-[0.34em] text-xs">View Coverages</span><i class="ph ph-arrow-down text-xl group-hover:translate-y-1 transition-transform duration-300"></i></a>
+                <div class="inline-flex items-center justify-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 text-slate-300 text-xs font-semibold tracking-widest uppercase mb-8">
+                    <span class="inline-block h-2 w-2 rounded-full bg-brand-accent"></span>
+                    Institutional insight network
+                </div>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-semibold tracking-tighter leading-[1.05] mb-8 text-white max-w-5xl mx-auto">
+                    Powering those building <br class="hidden md:block"><span class="text-brand-accent">the next wave</span> of AI and infrastructure
+                </h1>
+                <p class="text-lg md:text-xl text-slate-400 font-light max-w-2xl leading-relaxed mb-16 mx-auto">
+                    Covering the AI, Data Center, Digital Asset and FinTech Ecosystems.
+                </p>
+                <a href="#coverages" class="group flex flex-col items-center justify-center gap-3 text-sm font-semibold text-slate-500 hover:text-white transition-colors mx-auto">
+                    <span class="uppercase tracking-[0.2em]">Explore coverages</span>
+                    <span class="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-lg text-slate-300 transition-colors group-hover:border-brand-accent group-hover:text-white">
+                        ↓
+                    </span>
+                </a>
             </div>
         </section>
+
         <section class="relative h-[60vh] w-full overflow-hidden border-y border-white/10 bg-institutional-900">
-            <img src="Data%20Center%20Broad.jpeg" alt="Broad view of modern data center infrastructure" class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity" loading="lazy" decoding="async">
+            <img
+                src="Data%20Center%20Broad.jpeg"
+                width="1920"
+                height="1080"
+                alt="Broad view of modern data center infrastructure"
+                class="absolute inset-0 w-full h-full object-cover opacity-40 mix-blend-luminosity"
+                fetchpriority="high"
+                decoding="async"
+            >
             <div class="absolute inset-0 bg-gradient-to-t from-institutional-950 via-transparent to-institutional-950"></div>
-            <div class="absolute inset-0 flex items-center justify-center p-6 text-center z-10"><p class="font-editorial text-3xl md:text-5xl italic text-white max-w-4xl drop-shadow-lg leading-tight mx-auto">“Coverage that provides certainty in an age when uncertainty infinitely compounds.”</p></div>
+            <div class="absolute inset-0 flex items-center justify-center p-6 text-center z-10">
+                <p class="font-editorial text-3xl md:text-5xl italic text-white max-w-4xl drop-shadow-lg leading-tight">
+                    “Where infrastructure, innovation, and risk converge.”
+                </p>
+            </div>
         </section>
+
         <section id="coverages" class="py-32 px-6">
             <div class="max-w-7xl mx-auto">
-                <div class="text-center mb-16"><h2 class="text-4xl md:text-5xl font-bold tracking-tight text-brand-accent mb-4">Coverages</h2><p class="text-slate-400 max-w-xl mx-auto text-lg font-light">Comprehensive protection built for the agentic economy</p></div>
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl md:text-5xl font-bold tracking-tight text-brand-accent mb-4">Coverages</h2>
+                    <p class="text-slate-400 max-w-xl mx-auto text-lg font-light">
+                        Strategic insurance guidance across mission-critical sectors and emerging technologies.
+                    </p>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
-                    <div class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden"><div class="relative flex flex-col items-center justify-center border-b border-institutional-700 min-h-[220px] bg-institutional-950 overflow-hidden"><img src="1%20Data%20Center%20Coverage.jpeg" alt="Data Center Coverage" class="coverage-image absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"><div class="absolute inset-0 bg-gradient-to-t from-institutional-900 via-transparent to-transparent"></div></div><div class="p-6 flex flex-col flex-grow relative z-10 bg-institutional-900"><h3 class="text-lg font-bold text-brand-accent mb-2">Data Center &amp; GPU Residual Value Coverage</h3><p class="text-sm text-slate-400 mb-6 flex-grow leading-relaxed">Property and operational coverage for data center facilities, equipment, and business interruption from physical and cyber-related disruptions.</p><a href="mailto:info@reamplify.insure" class="w-full inline-flex items-center justify-center py-2.5 px-4 bg-institutional-800 border border-institutional-700 rounded-lg text-sm font-semibold text-white hover:bg-brand-accent hover:border-brand-accent transition-colors">Learn more</a></div></div>
-                    <div class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden"><div class="relative flex flex-col items-center justify-center border-b border-institutional-700 min-h-[220px] bg-institutional-950 overflow-hidden"><img src="2%20AI%20Agent%20Coverage.jpeg" alt="AI Agent Coverage" class="coverage-image absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"><div class="absolute inset-0 bg-gradient-to-t from-institutional-900 via-transparent to-transparent"></div></div><div class="p-6 flex flex-col flex-grow relative z-10 bg-institutional-900"><h3 class="text-lg font-bold text-brand-accent mb-2">AI Agent Coverage</h3><p class="text-sm text-slate-400 mb-6 flex-grow leading-relaxed">Purpose-built protection for autonomous AI agents against data loss, prompt injection attacks, adversarial misuse, and operational disruption.</p><a href="mailto:info@reamplify.insure" class="w-full inline-flex items-center justify-center py-2.5 px-4 bg-institutional-800 border border-institutional-700 rounded-lg text-sm font-semibold text-white hover:bg-brand-accent hover:border-brand-accent transition-colors">Learn more</a></div></div>
-                    <div class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden"><div class="relative flex flex-col items-center justify-center border-b border-institutional-700 min-h-[220px] bg-institutional-950 overflow-hidden"><img src="3%20Semiconductor.jpeg" alt="Semiconductor Coverage" class="coverage-image absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"><div class="absolute inset-0 bg-gradient-to-t from-institutional-900 via-transparent to-transparent"></div></div><div class="p-6 flex flex-col flex-grow relative z-10 bg-institutional-900"><h3 class="text-lg font-bold text-brand-accent mb-2">Semiconductor Coverage</h3><p class="text-sm text-slate-400 mb-6 flex-grow leading-relaxed">Protection for semiconductor inventory, wafers, and advanced chips against supply chain disruption and physical loss.</p><a href="mailto:info@reamplify.insure" class="w-full inline-flex items-center justify-center py-2.5 px-4 bg-institutional-800 border border-institutional-700 rounded-lg text-sm font-semibold text-white hover:bg-brand-accent hover:border-brand-accent transition-colors">Learn more</a></div></div>
-                    <div class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden"><div class="relative flex flex-col items-center justify-center border-b border-institutional-700 min-h-[220px] bg-institutional-950 overflow-hidden"><img src="4%20Directors%20and%20Officers.jpeg" alt="Directors and Officers Coverage" class="coverage-image absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"><div class="absolute inset-0 bg-gradient-to-t from-institutional-900 via-transparent to-transparent"></div></div><div class="p-6 flex flex-col flex-grow relative z-10 bg-institutional-900"><h3 class="text-lg font-bold text-brand-accent mb-2">Frontier Technology Directors &amp; Officers</h3><p class="text-sm text-slate-400 mb-6 flex-grow leading-relaxed">Protection for corporate leadership against personal liability arising from management decisions, regulatory scrutiny, and governance issues.</p><a href="mailto:info@reamplify.insure" class="w-full inline-flex items-center justify-center py-2.5 px-4 bg-institutional-800 border border-institutional-700 rounded-lg text-sm font-semibold text-white hover:bg-brand-accent hover:border-brand-accent transition-colors">Learn more</a></div></div>
-                    <div class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden"><div class="relative flex flex-col items-center justify-center border-b border-institutional-700 min-h-[220px] bg-institutional-950 overflow-hidden"><img src="5%20AI%20Tech%20EO.jpeg" alt="AI and Technology Errors and Omissions Coverage" class="coverage-image absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"><div class="absolute inset-0 bg-gradient-to-t from-institutional-900 via-transparent to-transparent"></div></div><div class="p-6 flex flex-col flex-grow relative z-10 bg-institutional-900"><h3 class="text-lg font-bold text-brand-accent mb-2">Frontier Technology E&amp;O</h3><p class="text-sm text-slate-400 mb-6 flex-grow leading-relaxed">Errors and omissions coverage for AI-driven products and technology services.</p><a href="mailto:info@reamplify.insure" class="w-full inline-flex items-center justify-center py-2.5 px-4 bg-institutional-800 border border-institutional-700 rounded-lg text-sm font-semibold text-white hover:bg-brand-accent hover:border-brand-accent transition-colors">Learn more</a></div></div>
-                    <div class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden"><div class="relative flex flex-col items-center justify-center border-b border-institutional-700 min-h-[220px] bg-institutional-950 overflow-hidden"><img src="6%20Cyber%20Liability.jpeg" alt="Cyber Liability Coverage" class="coverage-image absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"><div class="absolute inset-0 bg-gradient-to-t from-institutional-900 via-transparent to-transparent"></div></div><div class="p-6 flex flex-col flex-grow relative z-10 bg-institutional-900"><h3 class="text-lg font-bold text-brand-accent mb-2">Cyber Liability</h3><p class="text-sm text-slate-400 mb-6 flex-grow leading-relaxed">Comprehensive coverage for data breaches, ransomware attacks, and cyber incidents affecting digital infrastructure and business operations.</p><a href="mailto:info@reamplify.insure" class="w-full inline-flex items-center justify-center py-2.5 px-4 bg-institutional-800 border border-institutional-700 rounded-lg text-sm font-semibold text-white hover:bg-brand-accent hover:border-brand-accent transition-colors">Learn more</a></div></div>
-                    <div class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden"><div class="relative flex flex-col items-center justify-center border-b border-institutional-700 min-h-[220px] bg-institutional-950 overflow-hidden"><img src="7kidnapransom.jpeg" alt="Kidnap and Ransom Coverage" class="coverage-image absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"><div class="absolute inset-0 bg-gradient-to-t from-institutional-900 via-transparent to-transparent"></div></div><div class="p-6 flex flex-col flex-grow relative z-10 bg-institutional-900"><h3 class="text-lg font-bold text-brand-accent mb-2">Kidnap &amp; Ransom</h3><p class="text-sm text-slate-400 mb-6 flex-grow leading-relaxed">Crisis response and financial coverage for technology executives and key personnel facing kidnapping, extortion, and related threats.</p><a href="mailto:info@reamplify.insure" class="w-full inline-flex items-center justify-center py-2.5 px-4 bg-institutional-800 border border-institutional-700 rounded-lg text-sm font-semibold text-white hover:bg-brand-accent hover:border-brand-accent transition-colors">Learn more</a></div></div>
-                    <div class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden"><div class="relative flex flex-col items-center justify-center border-b border-institutional-700 min-h-[220px] bg-institutional-950 overflow-hidden"><img src="8digitalassets.jpeg" alt="Digital Assets Coverage" class="coverage-image absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"><div class="absolute inset-0 bg-gradient-to-t from-institutional-900 via-transparent to-transparent"></div></div><div class="p-6 flex flex-col flex-grow relative z-10 bg-institutional-900"><h3 class="text-lg font-bold text-brand-accent mb-2">Digital Assets</h3><p class="text-sm text-slate-400 mb-6 flex-grow leading-relaxed">Specialized insurance for digital asset custodians, exchanges, and holders protecting against theft, loss, and custody-related exposure.</p><a href="mailto:info@reamplify.insure" class="w-full inline-flex items-center justify-center py-2.5 px-4 bg-institutional-800 border border-institutional-700 rounded-lg text-sm font-semibold text-white hover:bg-brand-accent hover:border-brand-accent transition-colors">Learn more</a></div></div>
-                    <div class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden"><div class="relative flex flex-col items-center justify-center border-b border-institutional-700 min-h-[220px] bg-institutional-950 overflow-hidden"><img src="9specialized%20coverage.jpeg" alt="Specialized Programs Coverage" class="coverage-image absolute inset-0 w-full h-full object-cover" loading="lazy" decoding="async"><div class="absolute inset-0 bg-gradient-to-t from-institutional-900 via-transparent to-transparent"></div></div><div class="p-6 flex flex-col flex-grow relative z-10 bg-institutional-900"><h3 class="text-lg font-bold text-brand-accent mb-2">Specialized Programs</h3><p class="text-sm text-slate-400 mb-6 flex-grow leading-relaxed">Capacity and support for innovative programs, combining deep underwriting expertise and strategic partnerships.</p><a href="mailto:info@reamplify.insure" class="w-full inline-flex items-center justify-center py-2.5 px-4 bg-institutional-800 border border-institutional-700 rounded-lg text-sm font-semibold text-white hover:bg-brand-accent hover:border-brand-accent transition-colors">Contact Underwriting</a></div></div>
+                    <article class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden">
+                        <div class="relative h-56">
+                            <img src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80" alt="AI infrastructure" width="640" height="420" loading="lazy" decoding="async" class="coverage-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300 mb-4">AI</div>
+                            <h3 class="text-2xl font-semibold text-white mb-3">AI Infrastructure</h3>
+                            <p class="text-slate-400 leading-relaxed">Coverage built for model training, inference, and enterprise AI infrastructure.</p>
+                        </div>
+                    </article>
+
+                    <article class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden">
+                        <div class="relative h-56">
+                            <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1200&q=80" alt="Data center operations" width="640" height="420" loading="lazy" decoding="async" class="coverage-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300 mb-4">Data Center</div>
+                            <h3 class="text-2xl font-semibold text-white mb-3">Data Center</h3>
+                            <p class="text-slate-400 leading-relaxed">Protection for hyperscale, colocation, edge, and mission-critical digital infrastructure.</p>
+                        </div>
+                    </article>
+
+                    <article class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden">
+                        <div class="relative h-56">
+                            <img src="https://images.unsplash.com/photo-1621761191319-c6fb62004040?auto=format&fit=crop&w=1200&q=80" alt="Digital assets" width="640" height="420" loading="lazy" decoding="async" class="coverage-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300 mb-4">Digital Assets</div>
+                            <h3 class="text-2xl font-semibold text-white mb-3">Digital Assets</h3>
+                            <p class="text-slate-400 leading-relaxed">Risk solutions tailored to digital asset platforms, custody, and treasury operations.</p>
+                        </div>
+                    </article>
+
+                    <article class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden">
+                        <div class="relative h-56">
+                            <img src="https://images.unsplash.com/photo-1559526324-4b87b5e36e44?auto=format&fit=crop&w=1200&q=80" alt="FinTech risk" width="640" height="420" loading="lazy" decoding="async" class="coverage-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300 mb-4">FinTech</div>
+                            <h3 class="text-2xl font-semibold text-white mb-3">FinTech</h3>
+                            <p class="text-slate-400 leading-relaxed">Specialty insurance for fintech products, platforms, and operational exposures.</p>
+                        </div>
+                    </article>
+
+                    <article class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden">
+                        <div class="relative h-56">
+                            <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80" alt="Cyber and litigation" width="640" height="420" loading="lazy" decoding="async" class="coverage-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300 mb-4">Cyber</div>
+                            <h3 class="text-2xl font-semibold text-white mb-3">Cyber & Liability</h3>
+                            <p class="text-slate-400 leading-relaxed">Policy design for cyber claims, litigation exposures, and enterprise-level operational risk.</p>
+                        </div>
+                    </article>
+
+                    <article class="bento-card group bg-institutional-900 border border-institutional-700 rounded-xl flex flex-col overflow-hidden">
+                        <div class="relative h-56">
+                            <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" alt="Capital market coverage" width="640" height="420" loading="lazy" decoding="async" class="coverage-image">
+                        </div>
+                        <div class="p-6">
+                            <div class="inline-flex items-center rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-300 mb-4">Capital</div>
+                            <h3 class="text-2xl font-semibold text-white mb-3">Capital Markets</h3>
+                            <p class="text-slate-400 leading-relaxed">Insurance support for firms navigating digital finance, liquidity, and capital structures.</p>
+                        </div>
+                    </article>
                 </div>
             </div>
         </section>
-        <section id="regulatory" class="py-20 px-6 mb-12"><div class="max-w-7xl mx-auto bg-institutional-900 rounded-3xl border border-institutional-700 p-8 md:p-16 flex flex-col lg:flex-row items-center justify-between gap-12"><div class="w-full lg:w-3/5 text-left"><div class="text-[11px] font-bold text-white uppercase tracking-[.28em] mb-4 flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-[#10b981]"></span> Regulatory Capacity</div><h3 class="text-3xl md:text-4xl font-semibold text-white mb-4">Bankable Institutional Trust.</h3><p class="text-slate-400 font-light leading-relaxed max-w-2xl">ReAmplify provides robust, highly-rated capacity backed by world-class regulatory frameworks, ensuring our paper is accepted by leading credit committees worldwide.</p></div><div class="w-full lg:w-2/5 flex justify-center lg:justify-end"><div class="flex items-center gap-6 p-8 rounded-2xl bg-[#05070a] border border-institutional-700 w-full max-w-[380px] shadow-lg"><i class="ph ph-scales text-4xl text-slate-400"></i><div><div class="text-xl font-bold text-white leading-tight">Barbados</div><div class="text-[10px] text-slate-400 uppercase tracking-[.2em]">FSC Class II License</div></div></div></div></div></section>
+
+        <section id="regulatory" class="py-20 px-6 mb-12">
+            <div class="max-w-7xl mx-auto bg-institutional-900 rounded-3xl border border-institutional-700 p-8 md:p-16 flex flex-col lg:flex-row items-center gap-10">
+                <div class="flex-1">
+                    <p class="text-sm font-semibold uppercase tracking-[0.2em] text-brand-accent mb-4">Regulatory perspective</p>
+                    <h2 class="text-3xl md:text-5xl font-bold tracking-tight text-white mb-6">Built for a fast-moving, highly regulated ecosystem.</h2>
+                    <p class="text-slate-400 text-lg leading-relaxed max-w-2xl">
+                        We help founders, operators, and investors navigate new coverage needs created by AI adoption, digital assets, and critical infrastructure growth.
+                    </p>
+                </div>
+                <div class="flex-1 grid gap-4 md:grid-cols-2">
+                    <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                        <p class="text-sm uppercase tracking-[0.2em] text-slate-400 mb-2">Strategy</p>
+                        <p class="text-xl font-semibold text-white">Coverage architecture</p>
+                    </div>
+                    <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                        <p class="text-sm uppercase tracking-[0.2em] text-slate-400 mb-2">Execution</p>
+                        <p class="text-xl font-semibold text-white">Underwriting support</p>
+                    </div>
+                    <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                        <p class="text-sm uppercase tracking-[0.2em] text-slate-400 mb-2">Risk</p>
+                        <p class="text-xl font-semibold text-white">Emerging-market guidance</p>
+                    </div>
+                    <div class="rounded-2xl border border-white/10 bg-white/5 p-5">
+                        <p class="text-sm uppercase tracking-[0.2em] text-slate-400 mb-2">Network</p>
+                        <p class="text-xl font-semibold text-white">Institutional partners</p>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
-    <footer class="border-t border-white/5 bg-institutional-950 pt-20 pb-10 px-6"><div class="max-w-7xl mx-auto flex flex-col gap-6 pt-8 text-xs text-slate-500 font-light text-center md:text-left"><p class="leading-relaxed max-w-5xl mx-auto md:mx-0">ReAmplify Insurance SCC will be regulated by the Barbados Financial Services Commission. ReAmplify Insurance SCC is not authorized or licensed outside of this jurisdiction and deals only through appropriately licensed insurance brokers. The publication and delivery of the information contained within our website is not intended as a direct solicitation for the purchase of insurance coverage.</p></div></footer>
+
+    <footer class="border-t border-white/5 bg-institutional-950 pt-20 pb-10 px-6">
+        <div class="max-w-7xl mx-auto flex flex-col gap-6 pt-8 text-xs text-slate-500 font-light text-center md:text-left">
+            <p>© 2025 ReAmplify. Powering the agentic revolution.</p>
+            <div class="flex flex-col md:flex-row gap-4 md:items-center md:justify-between">
+                <p>AI • Data Center • Digital Assets • FinTech</p>
+                <a href="mailto:info@reamplify.insure" class="text-slate-300 hover:text-white transition-colors">info@reamplify.insure</a>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
