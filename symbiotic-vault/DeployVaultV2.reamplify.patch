@@ -1,0 +1,39 @@
+diff --git a/script/DeployVaultV2.s.sol b/script/DeployVaultV2.s.sol
+index de51b38..dc0d034 100644
+--- a/script/DeployVaultV2.s.sol
++++ b/script/DeployVaultV2.s.sol
+@@ -4,22 +4,27 @@ pragma solidity ^0.8.25;
+ import "./base/DeployVaultV2Base.sol";
+ 
+ // forge script script/DeployVaultV2.s.sol:DeployVaultV2Script --rpc-url=RPC --broadcast
++//
++// reAmplify WBTC Vault V2 (Ethereum mainnet)
++// - ASSET: WBTC
++// - OWNER: all role holders
++// - No adapters at launch (idle capital OK; add later via Universal Delegator)
+ 
+ contract DeployVaultV2Script is DeployVaultV2Base {
+-    // Configurations - UPDATE THESE BEFORE DEPLOYMENT
++    // Configurations - reAmplify
+ 
+     // Name of the ERC20 representing shares in the vault
+-    string NAME = "SymVault";
++    string NAME = "reAmplify WBTC";
+     // Symbol of the ERC20 representing shares in the vault
+-    string SYMBOL = "SV";
++    string SYMBOL = "raWBTC";
+     // Address of the owner of the vault who can migrate the vault to new versions whitelisted by Symbiotic
+-    address OWNER = 0x0000000000000000000000000000000000000000;
+-    // Address of the vault asset token
+-    address ASSET = 0x0000000000000000000000000000000000000000;
++    address OWNER = 0xa2163bff0F2EBD4894aF901C642E88dCe9FC3574;
++    // Address of the vault asset token (WBTC mainnet)
++    address ASSET = 0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599;
+ 
+     // Optional
+ 
+-    // Deposit limit (maximum amount of assets allowed in the vault)
++    // Deposit limit (maximum amount of assets allowed in the vault); 0 = unlimited
+     uint256 DEPOSIT_LIMIT = 0;
+     // Whether deposits are restricted to whitelisted depositors
+     bool DEPOSIT_WHITELIST = false;

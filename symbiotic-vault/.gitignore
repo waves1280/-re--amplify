@@ -1,0 +1,10 @@
+# Foundry / build artifacts (if someone builds in place)
+cache/
+out/
+lib/
+broadcast/
+# Secrets
+.env
+.password
+*.key
+keystore/
